@@ -1,0 +1,2 @@
+Back propagation - https://github.com/jakezhaojb/Backpropagation-C
+Convolutional - https://github.com/sdemyanov/ConvNet
