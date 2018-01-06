@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
-#include <QGraphicsPixmapItem>
-#include <QGraphicsScene>
-#include <QPixmap>
+#include <QFileDialog>
+#include <QMessageBox>
 using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,14 +18,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_buttonAdd_clicked()
 {
-    try{
-        QPixmap pix("C:\\Users\\susha\\Qt Projects\\major-project\\database\\test-data\\upload.png");
-        QGraphicsScene *scene = new QGraphicsScene(this);
-        ui->imageViewSignature->setScene(scene);
-        scene->addPixmap(pix);
-        ui->imageViewSignature->fitInView(scene->sceneRect(),Qt::KeepAspectRatio);
-        qInfo("Image shown in the view port!");
-    }catch(...){
-        qInfo("ERROR Detected");
-    }
+    QFileDialog dialog(this);
+    dialog.setNameFilter(tr("Images (*.png *.xpm *.jpg)"));
+    dialog.setViewMode(QFileDialog::Detail);
+    QString fileName = QFileDialog::getOpenFileName(this,
+         tr("Open Signature file"), "", tr("Image Files (*.png *.jpg *.bmp)"));
+    QPixmap pix(fileName);
+    QGraphicsScene *scene = new QGraphicsScene(this);
+    ui->imageViewSignature->setScene(scene);
+    //TODO convert image into grayscale and resize to 300px image
+    //TODO provide an image processing algorithm to process data and set view port where the signature is being signed
+    scene->addPixmap(pix);
+    ui->imageViewSignature->fitInView(scene->sceneRect(),Qt::KeepAspectRatio);
+    qInfo("Image shown in the view port!");
+}
+
+void MainWindow::on_buttonVerify_clicked()
+{
+    QMessageBox::information(this,"Error","The provided signature do not match with any person in the database!");
+    //TODO adding the algorithm to search data on the database.
 }

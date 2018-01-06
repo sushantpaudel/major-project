@@ -18,6 +18,8 @@ public:
 private slots:
     void on_buttonAdd_clicked();
 
+    void on_buttonVerify_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

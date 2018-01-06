@@ -13,9 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    verification.cpp \
+    searching.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    verification.h \
+    searching.h
 
 FORMS    += mainwindow.ui
 
